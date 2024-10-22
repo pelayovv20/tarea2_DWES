@@ -59,13 +59,13 @@ public class Principal {
 			
 			
 		}catch(SQLException e) {
-			System.out.println("error SQL" + e.getLocalizedMessage());
+			System.out.println("Ha ocurrido un error de SQLException" + e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch(FileNotFoundException e) {
-			System.out.println("error");
+			System.out.println("Ha ocurrido un error de FileNotFoundException " + e.getLocalizedMessage());
 			e.printStackTrace();
 		}catch(IOException e ) {
-			System.out.println("error");
+			System.out.println("Ha ocurrido un error de IOException " + e.getLocalizedMessage());
 			e.printStackTrace();
 			
 		}
