@@ -19,7 +19,7 @@ public class Principal {
 
 	public static void main(String[] args) {
 		System.out.println("INI");
-		System.out.println();
+		
 		Scanner in = new Scanner(System.in);
 		
 		
