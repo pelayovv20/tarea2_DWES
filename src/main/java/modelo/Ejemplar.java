@@ -40,10 +40,12 @@ public class Ejemplar {
 
 	@Override
 	public String toString() {
-		return "Ejemplar [id=" + id + ", nombre=" + nombre + "]";
+		String ret ="";
+		ret += "id: " + this.id;
+		ret += "\nnombre: " + this.nombre;
+		
+		return ret;
 	}
-	
-	
 	
 	
 }

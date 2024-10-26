@@ -43,7 +43,12 @@ public class Persona {
 
 	@Override
 	public String toString() {
-		return "Persona [id=" + id + ", nombre=" + nombre + ", email=" + email + "]";
+		String ret = "";
+		ret += "id: " + this.id;
+		ret += "\nnombre: " + this.nombre;
+		ret += "\nemail: " + this.email;
+		
+		return ret;
 	}
 	
 	

@@ -45,7 +45,12 @@ public class Mensaje {
 
 	@Override
 	public String toString() {
-		return "Mensaje [id=" + id + ", fechahora=" + fechahora + ", mensaje=" + mensaje + "]";
+		String ret = "";
+		ret += "id: " + this.id;
+		ret += "\nfecha y hora: " + this.fechahora;
+		ret += "\nmensaje: " + this.mensaje;
+		
+		return ret;
 	}
 	
 	
