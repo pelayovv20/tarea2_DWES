@@ -4,6 +4,7 @@ public class Ejemplar {
 
 	private long id;
 	private String nombre;
+	private String id_planta;
 	
 	
 	public Ejemplar() {
@@ -11,10 +12,11 @@ public class Ejemplar {
 	}
 
 
-	public Ejemplar(long id, String nombre) {
+	public Ejemplar(long id, String nombre, String id_planta) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
+		this.id_planta = id_planta;
 	}
 
 
@@ -36,6 +38,17 @@ public class Ejemplar {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+
+
+	public String getId_planta() {
+		return id_planta;
+	}
+
+
+	public void setId_planta(String id_planta) {
+		this.id_planta = id_planta;
+	}
 
 
 	@Override
@@ -43,6 +56,7 @@ public class Ejemplar {
 		String ret ="";
 		ret += "id: " + this.id;
 		ret += "\nnombre: " + this.nombre;
+		ret += "\nid planta: " + this.id_planta;
 		
 		return ret;
 	}
