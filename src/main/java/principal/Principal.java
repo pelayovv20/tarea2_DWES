@@ -19,6 +19,10 @@ public class Principal {
 	public static void main(String[] args) {
 		System.out.println("INI");
 
+		
+		//ViveroFachada portal = ViveroFachada.getPortal();
+		
+		
 		Scanner in = new Scanner(System.in);
 
 		System.out.println("Dame el código de la nueva Planta:");
@@ -74,6 +78,12 @@ public class Principal {
 
 		}
 
+		
+		
+		
+		
+		
+		
 		System.out.println("FIN");
 	}
 
