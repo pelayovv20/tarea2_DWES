@@ -15,38 +15,34 @@ public class PersonaDAO implements OperacionesCRUD<Persona> {
 	}
 
 	@Override
-	public boolean insertarConID(Persona elemento) {
-		
-		return false;
-	}
-
-	@Override
-	public long insertarSinID(Persona elemento) {
-		
+	public long insertar(Persona elemento) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public Persona buscarPorID(long id) {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Persona> buscarTodos() {
-		
+	public Collection<Persona> verTodos() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean modificar(Persona elemento) {
-		
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean eliminar(Persona elemento) {
-		
+		// TODO Auto-generated method stub
 		return false;
 	}
+
+	
 }

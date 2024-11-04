@@ -15,38 +15,34 @@ public class EjemplarDAO implements OperacionesCRUD<Ejemplar> {
 	}
 
 	@Override
-	public boolean insertarConID(Ejemplar elemento) {
-		
-		return false;
-	}
-
-	@Override
-	public long insertarSinID(Ejemplar elemento) {
-		
+	public long insertar(Ejemplar elemento) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public Ejemplar buscarPorID(long id) {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Ejemplar> buscarTodos() {
-		
+	public Collection<Ejemplar> verTodos() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean modificar(Ejemplar elemento) {
-		
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean eliminar(Ejemplar elemento) {
-		
+		// TODO Auto-generated method stub
 		return false;
 	}
+
+	
 }

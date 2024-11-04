@@ -15,38 +15,36 @@ public class CredencialDAO implements OperacionesCRUD<Credencial> {
 	}
 
 	@Override
-	public boolean insertarConID(Credencial elemento) {
-		
-		return false;
-	}
-
-	@Override
-	public long insertarSinID(Credencial elemento) {
-		
+	public long insertar(Credencial elemento) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public Credencial buscarPorID(long id) {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Credencial> buscarTodos() {
-		
+	public Collection<Credencial> verTodos() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean modificar(Credencial elemento) {
-		
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean eliminar(Credencial elemento) {
-		
+		// TODO Auto-generated method stub
 		return false;
 	}
+
+
+	
+	
 }
