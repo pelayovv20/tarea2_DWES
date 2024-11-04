@@ -10,10 +10,21 @@ import java.util.Properties;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
-public class MySqlDAOFactory {
+import dao.EjemplarDAO;
+import dao.MensajeDAO;
+import dao.PersonaDAO;
+import dao.PlantaDAO;
+
+public class ConexionBD {
 
 	private static Connection con;
-	private static MySqlDAOFactory f;
+	private static ConexionBD f;
+	
+	public static ConexionBD getInstance() {
+		if (f == null)
+			f = new ConexionBD();
+		return f;
+	}
 
 	public static Connection getConexion() {
 		Properties prop = new Properties();
@@ -53,5 +64,39 @@ public class MySqlDAOFactory {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public PlantaDAO getPlantaDAO() {
+		return new PlantaDAO(con);
+	}
+	
+	public EjemplarDAO getEjemplarDAO() {
+		return new EjemplarDAO(con);
+	}
+	
+	public PersonaDAO getPersonaDAO() {
+		return new PersonaDAO(con);
+	}
+	
+	public MensajeDAO getMensajeDAO() {
+		return new MensajeDAO(con);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

@@ -12,11 +12,15 @@ import java.util.Scanner;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
+import control.Controlador;
+import control.ServiciosPlanta;
+import dao.PlantaDAO;
 import modelo.Planta;
 
 public class Principal {
 
 	public static void main(String[] args) {
+		
 		System.out.println("INI");
 
 		
@@ -33,6 +37,17 @@ public class Principal {
 		String nombre_cientifico = in.nextLine();
 
 		Planta nueva = new Planta(codigo, nombre_comun, nombre_cientifico);
+		
+		//correcto
+		//ServiciosPlanta servPlanta = new ServiciosPlanta();
+		if(!Controlador.getServicios().getServiciosPlanta().validarPlanta(nueva)) {
+			System.out.println("Los valores introducidos para la planta son incorrectos. Repita el proceso");
+		}
+		
+		//int resultado = Controlador.getServicios().getServiciosPlanta().insertar(nueva);
+		
+		
+		
 
 		Connection con;
 		MysqlDataSource m = new MysqlDataSource();
