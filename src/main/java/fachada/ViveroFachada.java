@@ -1,11 +1,11 @@
 package fachada;
 
-import util.MySqlDAOFactory;
+import util.ConexionBD;
 
 public class ViveroFachada {
 
 	private static ViveroFachada portal;
 	
-	MySqlDAOFactory factoriaDAO = MySqlDAOFactory.getCon();
+	ConexionBD factoriaDAO = ConexionBD.getCon();
 	
 }

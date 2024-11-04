@@ -7,11 +7,11 @@ import modelo.Mensaje;
 
 public class MensajeDAO implements OperacionesCRUD<Mensaje> {
 
-	Connection conex;
+	Connection con;
 
-	public MensajeDAO(Connection conex) {
-		if (this.conex == null)
-			this.conex = conex;
+	public MensajeDAO(Connection con) {
+		
+			this.con = con;
 	}
 
 	@Override

@@ -10,15 +10,16 @@ import java.util.HashSet;
 import com.mysql.cj.xdevapi.Statement;
 
 import modelo.Planta;
-import util.MySqlDAOFactory;
+import util.ConexionBD;
 
 public class PlantaDAO implements OperacionesCRUD<Planta> {
+	
+	private PreparedStatement ps;
+	private ResultSet rs;
+	private Connection con;
 
-	Connection conex;
-
-	public PlantaDAO(Connection conex) {
-		if (this.conex == null)
-			this.conex = conex;
+	public PlantaDAO(Connection con) {
+			this.con = con;
 	}
 
 	@Override
@@ -41,12 +42,12 @@ public class PlantaDAO implements OperacionesCRUD<Planta> {
 		
 		
 		try {
-			if (conex == null) {
-				conex = MySqlDAOFactory.getConexion();
+			if (con == null) {
+				con = ConexionBD.getConexion();
 			}
 
-			PreparedStatement ps = conex.prepareStatement(consulta);
-			ResultSet rs = ps.executeQuery();
+			 ps = con.prepareStatement(consulta);
+			 rs = ps.executeQuery();
 
 		while (rs.next()) {
 				Planta nueva = new Planta(
@@ -57,8 +58,9 @@ public class PlantaDAO implements OperacionesCRUD<Planta> {
 				
 				plantas.add(nueva);
 			}
-			conex.close();
+			con.close();
 		} catch (SQLException e) {
+			System.out.println("Se ha producido una SQLException:" + e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -68,8 +70,27 @@ public class PlantaDAO implements OperacionesCRUD<Planta> {
 	}
 
 	@Override
-	public boolean modificar(Planta elemento) {
-		// TODO Auto-generated method stub
+	public boolean modificar(Planta p) {
+		String consulta = "UPDATE plantas SET nombrecomun =?, nombrecientifico =? WHERE codigo =?";
+		try {
+			
+			ps = con.prepareStatement(consulta);
+			ps.setString(1, p.getNombrecomun());
+			ps.setString(2, p.getNombrecientifico());
+			ps.setString(3, p.getCodigo());
+			
+			
+			int resultadomodificacion = ps.executeUpdate();
+			if (resultadomodificacion == 1)
+				return true;
+			else
+				return false;	
+
+		} catch (SQLException e) {
+			System.out.println("Se ha producido una SQLException:" + e.getMessage());
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 

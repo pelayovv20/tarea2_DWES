@@ -7,11 +7,11 @@ import modelo.Credencial;
 
 public class CredencialDAO implements OperacionesCRUD<Credencial> {
 
-	Connection conex;
+	Connection con;
 
-	public CredencialDAO(Connection conex) {
-		if (this.conex == null)
-			this.conex = conex;
+	public CredencialDAO(Connection con) {
+		
+			this.con = con;
 	}
 
 	@Override

@@ -7,11 +7,11 @@ import modelo.Persona;
 
 public class PersonaDAO implements OperacionesCRUD<Persona> {
 
-	Connection conex;
+	Connection con;
 
-	public PersonaDAO(Connection conex) {
-		if (this.conex == null)
-			this.conex = conex;
+	public PersonaDAO(Connection con) {
+		
+			this.con = con;
 	}
 
 	@Override

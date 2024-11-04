@@ -7,11 +7,11 @@ import modelo.Ejemplar;
 
 public class EjemplarDAO implements OperacionesCRUD<Ejemplar> {
 
-	Connection conex;
+	Connection con;
 
-	public EjemplarDAO(Connection conex) {
-		if (this.conex == null)
-			this.conex = conex;
+	public EjemplarDAO(Connection con) {
+		
+			this.con = con;
 	}
 
 	@Override

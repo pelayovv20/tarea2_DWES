@@ -11,12 +11,12 @@ public class Persona {
 		
 	}
 
-	public Persona(long id, String nombre, String email, long id_credencial) {
+	public Persona(long id, String nombre, String email) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.email = email;
-		this.id_credencial = id_credencial;
+		
 	}
 
 	public long getId() {
@@ -44,13 +44,7 @@ public class Persona {
 	}
 
 	
-	public long getId_credencial() {
-		return id_credencial;
-	}
-
-	public void setId_credencial(long id_credencial) {
-		this.id_credencial = id_credencial;
-	}
+	
 
 	@Override
 	public String toString() {
@@ -58,7 +52,7 @@ public class Persona {
 		ret += "id: " + this.id;
 		ret += "\nnombre: " + this.nombre;
 		ret += "\nemail: " + this.email;
-		ret += "\nid credencial: " + this.id_credencial;
+		
 		
 		return ret;
 	}
