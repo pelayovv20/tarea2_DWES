@@ -63,6 +63,19 @@ public class ViveroFachada {
 		System.out.println("3.  Eliminar persona");
 		System.out.println("4.  Volver al menu Principal");
 	}
+	public void menuModificarPlantas() {
+		System.out.println("Selecciona una opcion:");
+		System.out.println("1.  Modificar nombre común de una planta.");
+		System.out.println("2.  Modificar nombre científico de una planta.");
+		System.out.println("3.  Volver al menú principal de plantas.");
+	}
+	public void menuVerMensajes() {
+		System.out.println("1.  Ver mensajes de un ejemplar.");
+		System.out.println("2.  Ver mensajes de cada persona.");
+		System.out.println("3.  Ver mensajes por rango de fechas.");
+		System.out.println("4.  Ver mensajes por tipo de planta.");
+		System.out.println("5.  Volver al menú de mensajes.");
+	}
 	
 	
 	
