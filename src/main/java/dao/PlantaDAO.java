@@ -23,17 +23,48 @@ public class PlantaDAO implements OperacionesCRUD<Planta> {
 	}
 
 	@Override
-	public long insertar(Planta elemento) {
-		// TODO Auto-generated method stub
+	public long insertar(Planta p) {
+		try {
+			ps = con.prepareStatement("INSERT INTO plantas (codigo,nombrecomun,nombrecientifico) VALUES(?,?,?)");
+			ps.setString(1, p.getCodigo());
+			ps.setString(2,p.getNombrecomun());
+			ps.setString(3, p.getNombrecientifico());
+			return ps.executeUpdate();
+		}catch(SQLException e){
+			System.out.println("Error al insertar una planta" + e.getMessage());
+		}
 		return 0;
 	}
 
 
 	@Override
 	public Planta buscarPorID(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		String consulta = "SELECT * FROM plantas WHERE codigo = ?";
+	    Planta p = null;
+	    try {
+	        ps = con.prepareStatement(consulta);
+	        ps.setLong(1, id); 
+	        rs = ps.executeQuery();
+	        
+	        
+	        while(rs.next()) {
+	            String codigo = rs.getString("codigo");
+	            String nombreComun = rs.getString("nombrecomun");
+	            String nombreCientifico = rs.getString("nombrecientifico");
+	            p = new Planta(codigo, nombreComun, nombreCientifico);
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("Se ha producido una SQLException: " + e.getMessage());
+	        e.printStackTrace();
+	    } catch (Exception e) {
+	        System.out.println("Se ha producido una Exception: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    
+		return p; 
 	}
+		
+	
 
 	@Override
 	public Collection<Planta> verTodos() {
