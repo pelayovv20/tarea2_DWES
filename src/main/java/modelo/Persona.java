@@ -5,7 +5,7 @@ public class Persona {
 	private long id;
 	private String nombre;
 	private String email;
-	private long id_credencial;
+	
 	
 	public Persona() {
 		

@@ -5,16 +5,18 @@ public class Credencial {
 	private long id;
 	private String usuario;
 	private String password;
+	private long id_persona;
 	
 	public Credencial() {
 		
 	}
 
-	public Credencial(long id, String usuario, String password) {
+	public Credencial(long id, String usuario, String password,Long id_persona) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.password = password;
+		this.id_persona = id_persona;
 	}
 
 	public long getId() {
@@ -41,12 +43,22 @@ public class Credencial {
 		this.password = password;
 	}
 
+	
+	public long getId_persona() {
+		return id_persona;
+	}
+
+	public void setId_persona(long id_persona) {
+		this.id_persona = id_persona;
+	}
+
 	@Override
 	public String toString() {
 		String ret = "";
 		ret += "id: " + this.id;
 		ret += "\nusuario: " + this.usuario;
 		ret += "\npassword: " + this.password;
+		ret += "\nid persona: " + this.id_persona;
 		
 		return ret;
 	}
