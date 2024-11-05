@@ -1,6 +1,7 @@
 package control;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import dao.PlantaDAO;
 import modelo.Planta;
@@ -38,7 +39,10 @@ public class ServiciosPlanta {
 	}
 	
 	public Collection<Planta> verTodos(){
-		return plantaDAO.verTodos();
+		return plantaDAO.verTodos();  
+	}
+	public HashSet<Planta> verPorNombre(String nombre){
+		return null;
 	}
 	
 	public Planta buscarPorId(long id) {

@@ -15,6 +15,10 @@ public class ServiciosPersona {
 		con = ConexionBD.getInstance();
 		personaDAO = (PersonaDAO) con.getPersonaDAO();
 	}
+	
+	public boolean validarPersona(Persona p) {
+		return true;
+	}
 
 	public long insertar(Persona p) {
 

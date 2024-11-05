@@ -14,6 +14,16 @@ public class ServiciosEjemplar {
 		con = ConexionBD.getInstance();
 		ejemplarDAO = (EjemplarDAO) con.getEjemplarDAO();
 	}
+	
+	public boolean validarEjemplar (Ejemplar e) {
+		
+		if (e.getId()!=0) {
+			if (e.getId()<0) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public long insertar(Ejemplar e) {
 

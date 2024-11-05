@@ -85,7 +85,7 @@ public class EjemplarDAO implements OperacionesCRUD<Ejemplar> {
 				Ejemplar nuevo = new Ejemplar(
 						rs.getLong("id"),
 						rs.getString("nombre"),
-						rs.getString("codigoPlanta")
+						rs.getString("id_planta")
 						);
 				
 				ejemplares.add(nuevo);
