@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
+import dao.CredencialDAO;
 import dao.EjemplarDAO;
 import dao.MensajeDAO;
 import dao.PersonaDAO;
@@ -80,6 +81,10 @@ public class ConexionBD {
 	
 	public MensajeDAO getMensajeDAO() {
 		return new MensajeDAO(con);
+	}
+	
+	public CredencialDAO getCredencialDAO() {
+		return new CredencialDAO(con);
 	}
 	
 	

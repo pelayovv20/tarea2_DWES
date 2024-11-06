@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 import modelo.Persona;
+import modelo.Planta;
+import util.ConexionBD;
 
 public class PersonaDAO implements OperacionesCRUD<Persona> {
 
@@ -42,8 +46,36 @@ public class PersonaDAO implements OperacionesCRUD<Persona> {
 
 	@Override
 	public Collection<Persona> verTodos() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ArrayList<Persona> personas = new ArrayList<Persona>();
+		String consulta = "SELECT * FROM personas";
+		
+		
+		try {
+			if (con == null) {
+				con = ConexionBD.getConexion();
+			}
+
+			 ps = con.prepareStatement(consulta);
+			 rs = ps.executeQuery();
+
+		while (rs.next()) {
+				Persona nueva = new Persona(
+						rs.getLong("id"),
+						rs.getString("nombre"),
+						rs.getString("email")
+						);
+				
+				personas.add(nueva);
+			}
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Se ha producido una SQLException:" + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return personas;
+		
 	}
 
 	@Override
@@ -52,11 +84,7 @@ public class PersonaDAO implements OperacionesCRUD<Persona> {
 		return false;
 	}
 
-	@Override
-	public boolean eliminar(Persona elemento) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 	
 }

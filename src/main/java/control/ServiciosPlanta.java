@@ -34,9 +34,7 @@ public class ServiciosPlanta {
 		return plantaDAO.modificar(p);
 	}
 	
-	public boolean eliminar(Planta p) {
-		return plantaDAO.eliminar(p);
-	}
+	
 	
 	public Collection<Planta> verTodos(){
 		return plantaDAO.verTodos();  

@@ -125,11 +125,7 @@ public class PlantaDAO implements OperacionesCRUD<Planta> {
 		return false;
 	}
 
-	@Override
-	public boolean eliminar(Planta elemento) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 	
 }

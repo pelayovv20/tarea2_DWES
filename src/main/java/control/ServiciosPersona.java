@@ -29,9 +29,7 @@ public class ServiciosPersona {
 		return personaDAO.modificar(p);
 	}
 	
-	public boolean eliminar(Persona p) {
-		return personaDAO.eliminar(p);
-	}
+	
 	
 	public Collection<Persona> verTodos(){
 		return personaDAO.verTodos();

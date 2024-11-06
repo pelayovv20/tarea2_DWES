@@ -83,10 +83,6 @@ public class MensajeDAO implements OperacionesCRUD<Mensaje> {
 		return false;
 	}
 
-	@Override
-	public boolean eliminar(Mensaje elemento) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 }

@@ -22,7 +22,7 @@ public interface OperacionesCRUD<T> {
 	public boolean modificar(T elemento);
 	
 	
-	public boolean eliminar(T elemento);
+	
 
 	
 	

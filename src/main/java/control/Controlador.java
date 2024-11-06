@@ -9,6 +9,7 @@ public class Controlador {
 	private ServiciosEjemplar servEjemplar;
 	private ServiciosPersona servPersona;
 	private ServiciosMensaje servMensaje;
+	private ServiciosCredencial servCredencial;
 	
 	
 	public static Controlador getServicios() {
@@ -23,6 +24,7 @@ public class Controlador {
 		servEjemplar = new ServiciosEjemplar();
 		servPersona = new ServiciosPersona();
 		servMensaje = new ServiciosMensaje();
+		servCredencial = new ServiciosCredencial();
 	}
 	
 	
@@ -37,6 +39,10 @@ public class Controlador {
 	}
 	public ServiciosMensaje getServiciosMensaje() {
 		return servMensaje;
+	}
+	
+	public ServiciosCredencial getServiciosCredencial() {
+		return servCredencial;
 	}
 	
 }

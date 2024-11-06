@@ -105,11 +105,7 @@ public class EjemplarDAO implements OperacionesCRUD<Ejemplar> {
 		return false;
 	}
 
-	@Override
-	public boolean eliminar(Ejemplar elemento) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 	
 }

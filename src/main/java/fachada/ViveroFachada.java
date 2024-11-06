@@ -1,11 +1,13 @@
 package fachada;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
 import control.Controlador;
 import modelo.Credencial;
 import modelo.Ejemplar;
+import modelo.Mensaje;
 import modelo.Persona;
 import modelo.Planta;
 import util.ConexionBD;
@@ -13,190 +15,306 @@ import util.ConexionBD;
 public class ViveroFachada {
 	Scanner in = new Scanner(System.in);
 
-	private Credencial credencial;
 	private static ViveroFachada portal;
-	public ViveroFachada() {
-        this.credencial = null; // Inicialmente, sin autenticación
-    }
-	
 	private static Controlador controlador = Controlador.getServicios();
-	//ConexionBD conexionBD = (ConexionBD) ConexionBD.getConexion();
-	
-//	Controlador servEjemplar = control.Controlador.getServicios();
-//	Controlador servPlanta = control.Controlador.getServicios();
-//	Controlador servPersona = control.Controlador.getServicios();
-//	Controlador servMensaje = control.Controlador.getServicios();
-	
-	
+
+	private ViveroFachada() {
+
+	}
+
 	public static ViveroFachada getPortal() {
-		if (portal==null)
-			portal=new ViveroFachada();
+		if (portal == null)
+			portal = new ViveroFachada();
 		return portal;
 	}
-	
-	public void mostrarMenuInicial() {
+
+	public void MenuInicial() {
 		Scanner in = new Scanner(System.in);
-		
-		System.out.println("Sistema de gestión del vivero");
-		System.out.println("1. Acceder como invitado");
-		System.out.println("2. Iniciar sesión como trabajador/administrador");
-		
-		int opcion = in.nextInt();
-		switch(opcion) {
-		case 1:
-			mostrarMenuInvitados();
-			break;
-		case 2:
-			autenticarUsuario();
-			break;
-		default:
-			System.out.println("Opción no válida");
-		}
+
+		int opcion = 0;
+		do {
+			System.out.println("Sistema de gestión del vivero");
+			System.out.println("1. Acceder como invitado");
+			System.out.println("2. Iniciar sesión como personal/administrador");
+			System.out.println("3. Salir");
+			opcion = in.nextInt();
+
+			switch (opcion) {
+			case 1:
+				MenuInvitados();
+				break;
+			case 2:
+				autenticarUsuario();
+				break;
+			case 3:
+				break;
+			default:
+				System.out.println("Opción no válida");
+			}
+		} while (opcion != 3);
+
 	}
-	
-	public void mostrarMenuInvitados() {
-		System.out.println("MENÚ DE INVITADOS");
-		System.out.println("1. Ver plantas");
-		System.out.println("2. Iniciar Sesión");
-		System.out.println("3. Salir");
-		
-		int opcion = in.nextInt();
-		
-		switch(opcion) {
-		case 1:
-			Controlador.getServicios().getServiciosPlanta().verPorNombre(null);
-			mostrarMenuInvitados();
-			break;
-		case 2:
-			autenticarUsuario();
-			break;
-		case 3:
-			break;
-		default:
-			System.out.println("Opción no válida");
-			mostrarMenuInvitados();
-		}
+
+	public void MenuInvitados() {
+		Scanner in = new Scanner(System.in);
+
+		int opcion = 0;
+
+		do {
+			System.out.println("MENÚ DE INVITADOS");
+			System.out.println("1. Ver plantas");
+			System.out.println("2. Iniciar Sesión");
+			System.out.println("3. Salir");
+
+			opcion = in.nextInt();
+
+			switch (opcion) {
+			case 1:
+				verPlantas();
+				MenuInvitados();
+				break;
+			case 2:
+				autenticarUsuario();
+				break;
+			case 3:
+				break;
+			default:
+				System.out.println("Opción no válida");
+				MenuInvitados();
+			}
+		} while (opcion != 3);
 	}
-	
-	
+
 	public void autenticarUsuario() {
-		Scanner in = new Scanner (System.in);
+		Scanner in = new Scanner(System.in);
 		System.out.println("Usuario");
 		String usuario = in.nextLine();
 		System.out.println("Contraseña");
 		String contraseña = in.nextLine();
-		
-		if (usuario.equals("admin") && contraseña.equals("admin")) {
-			mostrarMenuAdministrador();
-		}else {
-			mostrarMenuPersonal();
+		boolean autenticarUsuario = controlador.getServiciosCredencial().autenticarUsuario(usuario, contraseña);
+
+		if (autenticarUsuario) {
+			System.out.println("Sesión iniciado con el usuario " + usuario);
+			if (usuario.equalsIgnoreCase("admin") && contraseña.equalsIgnoreCase("admin")) {
+				MenuAdministrador();
+			} else {
+				MenuPersonal();
+			}
+		} else {
+			System.out.println("Error al introducir usuario y contraseña");
 		}
-		
-	}
-	
-	public void mostrarMenuAdministrador() {
-		System.out.println("MENÚ DE ADMINISTRADOR");
-		System.out.println("1. Gestionar Plantas");
-		System.out.println("2. Gestionar Ejemplares.");
-		System.out.println("3. Gestionar Personas.");
-		System.out.println("4. Gestionar Mensaje.");
-		System.out.println("5. Salir");
-		
-		int opcion = in.nextInt();
-		
-		switch(opcion) {
-		case 1:
-			mostrarMenuPrincipalPlantas();
-			break;
-		case 2:
-			mostrarMenuPrincipalEjemplares();
-			break;
-		case 3:
-			mostrarMenuPrincipalPersonas();
-			break;
-		case 4:
-			mostrarMenuPrincipalMensajes();
-			break;
-		case 5:
-			break;
-		default:
-			System.out.println("Opción no válida");
-			mostrarMenuAdministrador();
-		}
-	}
-	
-	public void mostrarMenuPersonal() {
-		System.out.println("MENÚ DE TRABAJADORES");
-		System.out.println("1. Gestionar ejemplares");
-		System.out.println("2. Gestionar mensajes");
-		System.out.println("3. Salir");
-		
-int opcion = in.nextInt();
-		
-		switch(opcion) {
-		case 1:
-			mostrarMenuPrincipalEjemplares();
-			break;
-		case 2:
-			mostrarMenuPrincipalMensajes();
-			break;
-		case 3:
-			break;
-		default:
-			System.out.println("Opción no válida");
-			mostrarMenuPersonal();
-		}
-		
 	}
 
-	 
+	public void MenuAdministrador() {
 
+		int opcion = 0;
 
-	public void mostrarMenuPrincipalPlantas() {
-		System.out.println("Seleccione una opcion:");
-		System.out.println("1.  Ver plantas.");
-		System.out.println("2.  Crear nueva planta.");
-		System.out.println("3.  Modificar datos de Planta.");
-		System.out.println("4.  Eliminar Planta.");
-		System.out.println("5.  Volver al menu Principal");
+		do {
+			System.out.println("MENÚ DE ADMINISTRADOR");
+			System.out.println("1. Gestionar Plantas");
+			System.out.println("2. Gestionar Ejemplares.");
+			System.out.println("3. Gestionar Personas.");
+			System.out.println("4. Gestionar Mensaje.");
+			System.out.println("5. Salir");
+
+			opcion = in.nextInt();
+
+			switch (opcion) {
+			case 1:
+				MenuPrincipalPlantas();
+				break;
+			case 2:
+				MenuPrincipalEjemplares();
+				break;
+			case 3:
+				MenuPrincipalPersonas();
+				break;
+			case 4:
+				MenuPrincipalMensajes();
+				break;
+			case 5:
+				break;
+			default:
+				System.out.println("Opción no válida");
+				MenuAdministrador();
+			}
+		} while (opcion != 5);
+
+	}
+
+	public void MenuPersonal() {
+
+		int opcion = 0;
+
+		do {
+			System.out.println("MENÚ DEL PERSONAL");
+			System.out.println("1. Gestionar ejemplares");
+			System.out.println("2. Gestionar mensajes");
+			System.out.println("3. Salir");
+
+			opcion = in.nextInt();
+
+			switch (opcion) {
+			case 1:
+				MenuPrincipalEjemplares();
+				break;
+			case 2:
+				MenuPrincipalMensajes();
+				break;
+			case 3:
+				break;
+			default:
+				System.out.println("Opción no válida");
+				MenuPersonal();
+			}
+
+		} while (opcion != 3);
+	}
+
+	public void MenuPrincipalPlantas() {
+
+		int opcion = 0;
+
+		do {
+			System.out.println("Seleccione una opcion:");
+			System.out.println("1.  Ver plantas.");
+			System.out.println("2.  Crear nueva planta.");
+			System.out.println("3.  Modificar datos de Planta(nombre común/nombre científico).");
+			System.out.println("4.  Volver al menu Principal");
+
+			opcion = in.nextInt();
+
+			switch (opcion) {
+			case 1:
+				verPlantas();
+				MenuPrincipalPlantas();
+				break;
+			case 2:
+				insertarPlanta();
+				MenuPrincipalPlantas();
+				break;
+			case 3:
+				menuModificarPlantas();
+				break;
+			case 4:
+				break;
+			default:
+				System.out.println("Opción no válida");
+
+			}
+		} while (opcion != 5);
+
+	}
+
+	public void menuModificarPlantas() {
+
+		int opcion = 0;
+
+		do {
+			System.out.println("Selecciona una opcion:");
+			System.out.println("1.  Modificar nombre común de una planta.");
+			System.out.println("2.  Modificar nombre científico de una planta.");
+			System.out.println("3.  Volver al menú principal de plantas.");
+
+			opcion = in.nextInt();
+
+			switch (opcion) {
+			case 1:
+				// modificarNombreComun();
+				break;
+			case 2:
+				// modificarNombreCientifico();
+				break;
+			case 3:
+				break;
+			default:
+				System.out.println("Opcion no válida");
+			}
+
+		} while (opcion != 3);
+	}
+
+	public void MenuPrincipalEjemplares() {
+
+		int opcion = 0;
+
+		do {
+
+			System.out.println("Seleccione una opcion:");
+			System.out.println("1.  Ver ejemplares por tipo de planta.");
+			System.out.println("2.  Crear nuevo ejemplar.");
+			System.out.println("3.  Volver al menu Principal");
+
+			switch (opcion) {
+			case 1:
+				verEjemplares();
+				break;
+			case 2:
+				insertarEjemplar();
+				break;
+			case 3:
+				break;
+			default:
+				System.out.println("Opción no válida");
+			}
+		} while (opcion != 3);
+	}
+
+	public void MenuPrincipalPersonas() {
+
+		int opcion = 0;
+		do {
+
+			System.out.println("Seleccione una opcion:");
+			System.out.println("1.  Ver personas.");
+			System.out.println("2.  Registrar nueva persona.");
+			System.out.println("3.  Volver al menu Principal");
+
+			opcion = in.nextInt();
+
+			switch (opcion) {
+			case 1:
+				verPersonas();
+				MenuPrincipalPersonas();
+				break;
+			case 2:
+				insertarPersona();
+				break;
+			case 3:
+				break;
+			default:
+				System.out.println("Opción no válida");
+			}
+
+		} while (opcion != 3);
+	}
+
+	public void MenuPrincipalMensajes() {
 		
-		int opcion = in.nextInt();
-		
-		switch(opcion) {
-		case 1:
-			
-		}
-	}
-	
-	public void mostrarMenuPrincipalEjemplares() {
-		System.out.println("Seleccione una opcion:");
-		System.out.println("1.  Ver ejemplares por tipo de planta.");
-		System.out.println("2.  Crear nuevo ejemplar.");
-		System.out.println("3.  Eliminar Ejemplar.");
-		System.out.println("4.  Volver al menu Principal");
-	}
-	
-	public void mostrarMenuPrincipalPersonas() {
-		System.out.println("Seleccione una opcion:");
-		System.out.println("1.  Ver personas.");
-		System.out.println("2.  Registrar nueva persona.");
-		System.out.println("3.  Eliminar persona");
-		System.out.println("4.  Volver al menu Principal");
-	}
-	
-	public void mostrarMenuPrincipalMensajes() {
+		int opcion = 0;
+		do {
 		System.out.println("Seleccione una opcion:");
 		System.out.println("1.  Ver mensajes.");
 		System.out.println("2.  Crear nuevo mensaje.");
-		System.out.println("3.  Eliminar persona");
-		System.out.println("4.  Volver al menu Principal");
+		System.out.println("3.  Volver al menu Principal");
+		
+		opcion = in.nextInt();
+		
+		switch(opcion) {
+		case 1:
+			menuVerMensajes();
+			break;
+		case 2:
+			
+		}
+		
+		
+		
+		
+		
+	}while(opcion!=3);
 	}
-	public void menuModificarPlantas() {
-		System.out.println("Selecciona una opcion:");
-		System.out.println("1.  Modificar nombre común de una planta.");
-		System.out.println("2.  Modificar nombre científico de una planta.");
-		System.out.println("3.  Volver al menú principal de plantas.");
-	}
+
 	public void menuVerMensajes() {
 		System.out.println("1.  Ver mensajes de un ejemplar.");
 		System.out.println("2.  Ver mensajes de cada persona.");
@@ -204,9 +322,9 @@ int opcion = in.nextInt();
 		System.out.println("4.  Ver mensajes por tipo de planta.");
 		System.out.println("5.  Volver al menú de mensajes.");
 	}
-	
-	
-	public static Planta nuevaPlanta() {
+
+	// MÉTODOS INSERTAR
+	public static Planta insertarPlanta() {
 		Scanner in = new Scanner(System.in);
 		Planta p;
 		boolean validacion = false;
@@ -223,26 +341,13 @@ int opcion = in.nextInt();
 			String nombrecientifico = in.nextLine();
 			p.setNombrecientifico(nombrecientifico);
 			validacion = Controlador.getServicios().getServiciosPlanta().validarPlanta(p);
-		}while(!validacion);
-		
-			Controlador.getServicios().getServiciosPlanta().insertar(p);
-			return p;
+		} while (!validacion);
+
+		Controlador.getServicios().getServiciosPlanta().insertar(p);
+		return p;
 	}
-	
-//	private void verPlantas() {
-//        Collection<Planta> plantas = plantaDAO.verTodos(); // Obtener todas las plantas
-//        if (plantas.isEmpty()) {
-//            System.out.println("No hay plantas registradas.");
-//        } else {
-//            System.out.println("Listado de plantas:");
-//            for (Planta planta : plantas) {
-//                System.out.println(planta); // Supone que la clase Planta tiene un método toString adecuado
-//            }
-//        }
-//    }
-	
-	
-	public static Ejemplar nuevoEjemplar() {
+
+	public static Ejemplar insertarEjemplar() {
 		Scanner in = new Scanner(System.in);
 		Ejemplar e;
 		boolean correcto = false;
@@ -255,15 +360,13 @@ int opcion = in.nextInt();
 			System.out.println("Nombre del ejemplar");
 			String nombre = e.getId_planta() + e.getId();
 			e.setNombre(nombre);
-			
-			
-			
-		}while(!correcto);
+
+		} while (!correcto);
 		Controlador.getServicios().getServiciosEjemplar().insertar(e);
 		return e;
 	}
-	
-	public static Persona nuevaPersona() {
+
+	public static Persona insertarPersona() {
 		Scanner in = new Scanner(System.in);
 		Persona p;
 		boolean correcto = false;
@@ -280,73 +383,78 @@ int opcion = in.nextInt();
 			String email = in.nextLine();
 			p.setEmail(email);
 			correcto = Controlador.getServicios().getServiciosPersona().validarPersona(p);
-			
-		}while(!correcto);
+
+		} while (!correcto);
 		Controlador.getServicios().getServiciosPersona().insertar(p);
 		return p;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public void mostrarMenuGestionPlantas() {
-		Scanner in = new Scanner(System.in);
-		
-		
-		
-		System.out.println("GESTIÓN DE PLANTAS");
-		
-		int opcion = 0;
-		
-		do {
-			mostrarMenuPrincipalPlantas();
-			opcion = in.nextInt();
-			if (opcion<1 || opcion>6) {
-				System.out.println("Opcion incorrecta");
-				continue;
+//	public static Mensaje insertarMensaje() {
+//		Scanner in = new Scanner(System.in);
+//		Mensaje m;
+//		boolean correcto = false;
+//		do {
+//			m = new Mensaje();
+//			
+//			
+//			long id = in.nextLong();
+//			p.setId(id);
+//			System.out.println("Nombre de la persona");
+//			String nombre = in.nextLine();
+//			p.setNombre(nombre);
+//			System.out.println("Email de la persona");
+//			String email = in.nextLine();
+//			p.setEmail(email);
+//			correcto = Controlador.getServicios().getServiciosPersona().validarPersona(p);
+//
+//		} while (!correcto);
+//		Controlador.getServicios().getServiciosPersona().insertar(p);
+//		return m;
+//	}
+
+	// METODOS VER
+	public void verPlantas() {
+		ArrayList<Planta> plantas = (ArrayList<Planta>) controlador.getServiciosPlanta().verTodos();
+
+		if (plantas == null || plantas.isEmpty()) {
+			System.out.println("No se ha encontrado ninguna planta");
+			return;
+		} else {
+			System.out.println("LISTADO DE PLANTAS DEL VIVERO");
+			for (Planta p : plantas) {
+				System.out.println(p);
 			}
-			switch(opcion) {
-			case 1:
-				System.out.println("VER PLANTAS");
-				HashSet<Planta> plantas = new HashSet<Planta>();
-				String nombre = "";
-				plantas = servPlanta.getServiciosPlanta().verPorNombre(nombre);
-				for (Planta p:plantas) {
-					System.out.println(p);
-				}
-			case 2:
-				System.out.println("CREAR NUEVA PLANTA");
-				
+		}
+	}
+
+	public void verEjemplares() {
+		ArrayList<Ejemplar> ejemplares = (ArrayList<Ejemplar>) controlador.getServiciosEjemplar().verTodos();
+
+		if (ejemplares == null || ejemplares.isEmpty()) {
+			System.out.println("No se ha encontrado ningun ejemplar");
+			return;
+		} else {
+			System.out.println("LISTADO DE EJEMPLARES DEL VIVERO");
+			for (Ejemplar e : ejemplares) {
+				System.out.println(e);
 			}
-		}while(opcion!=6);
-		
-		
-		
-		
-		
+		}
+	}
+
+	public void verPersonas() {
+		ArrayList<Persona> personas = (ArrayList<Persona>) controlador.getServiciosPersona().verTodos();
+
+		if (personas == null || personas.isEmpty()) {
+			System.out.println("No se ha encontrado ninguna persona");
+			return;
+		} else {
+			System.out.println("LISTADO DE personas DEL VIVERO");
+			for (Persona p : personas) {
+				System.out.println(p);
+			}
+		}
 	}
 	
 	
-	
+
 }

@@ -34,9 +34,7 @@ public class ServiciosEjemplar {
 		return ejemplarDAO.modificar(e);
 	}
 	
-	public boolean eliminar(Ejemplar e) {
-		return ejemplarDAO.eliminar(e);
-	}
+	
 	
 	public Collection<Ejemplar> verTodos(){
 		return ejemplarDAO.verTodos();
