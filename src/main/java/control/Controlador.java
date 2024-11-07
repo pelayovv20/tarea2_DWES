@@ -4,6 +4,7 @@ package control;
 
 public class Controlador {
 
+	private String usuario;
 	private static Controlador servicios;
 	private ServiciosPlanta servPlanta;
 	private ServiciosEjemplar servEjemplar;

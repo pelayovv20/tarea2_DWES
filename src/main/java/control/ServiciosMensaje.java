@@ -20,9 +20,7 @@ public class ServiciosMensaje {
 		return mensajeDAO.insertar(m);
 	}
 	
-	public boolean modificar(Mensaje m) {
-		return mensajeDAO.modificar(m);
-	}
+	
 	
 	
 	

@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -18,7 +17,7 @@ import dao.PlantaDAO;
 
 public class ConexionBD {
 
-	private static Connection con;
+	private static Connection con  = getConexion();
 	private static ConexionBD f;
 	
 	public static ConexionBD getInstance() {
@@ -26,6 +25,7 @@ public class ConexionBD {
 			f = new ConexionBD();
 		return f;
 	}
+	
 
 	public static Connection getConexion() {
 		Properties prop = new Properties();

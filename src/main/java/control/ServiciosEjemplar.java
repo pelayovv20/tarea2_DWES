@@ -14,34 +14,14 @@ public class ServiciosEjemplar {
 		con = ConexionBD.getInstance();
 		ejemplarDAO = (EjemplarDAO) con.getEjemplarDAO();
 	}
-	
-	public boolean validarEjemplar (Ejemplar e) {
-		
-		if (e.getId()!=0) {
-			if (e.getId()<0) {
-				return false;
-			}
-		}
-		return true;
-	}
 
 	public long insertar(Ejemplar e) {
 
 		return ejemplarDAO.insertar(e);
 	}
-	
-	public boolean modificar(Ejemplar e) {
-		return ejemplarDAO.modificar(e);
-	}
-	
-	
-	
-	public Collection<Ejemplar> verTodos(){
+
+	public Collection<Ejemplar> verTodos() {
 		return ejemplarDAO.verTodos();
 	}
-	
-	public Ejemplar buscarPorID(long id) {
-		return ejemplarDAO.buscarPorID(id);
-	}
-	
+
 }

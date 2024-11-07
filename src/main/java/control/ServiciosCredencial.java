@@ -1,7 +1,6 @@
 package control;
 
 import dao.CredencialDAO;
-import dao.EjemplarDAO;
 import util.ConexionBD;
 
 public class ServiciosCredencial {
@@ -16,7 +15,12 @@ public class ServiciosCredencial {
 	}
 	
 	public boolean autenticarUsuario(String usuario, String password) {
+		
 		return credencialDAO.autenticarUsuario(usuario, password);
+	}
+	
+	public boolean usuario(String usuario) {
+		return credencialDAO.usuario(usuario);
 	}
 
 }

@@ -15,27 +15,18 @@ public class ServiciosPersona {
 		con = ConexionBD.getInstance();
 		personaDAO = (PersonaDAO) con.getPersonaDAO();
 	}
-	
-	public boolean validarPersona(Persona p) {
-		return true;
-	}
 
 	public long insertar(Persona p) {
 
 		return personaDAO.insertar(p);
 	}
-	
-	public boolean modificar(Persona p) {
-		return personaDAO.modificar(p);
-	}
-	
-	
-	
-	public Collection<Persona> verTodos(){
+
+	public Collection<Persona> verTodos() {
 		return personaDAO.verTodos();
 	}
-	
-	public Persona buscarPorId(long id) {
-		return personaDAO.buscarPorID(id);
+
+	public boolean validarPersona(Persona p) {
+		return personaDAO.validarPersona(p);
 	}
+
 }

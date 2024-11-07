@@ -1,5 +1,6 @@
 package control;
 
+import java.text.Normalizer;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -16,35 +17,33 @@ public class ServiciosPlanta {
 		plantaDAO = (PlantaDAO) con.getPlantaDAO();
 	}
 
+	public boolean validarCodigo(String codigo) {
+		return plantaDAO.validarCodigo(codigo);
+	}
+
 	public boolean validarPlanta(Planta p) {
-		boolean ret = false;
-		if (p.getCodigo().isEmpty())
-			return false;
-		if (p.getCodigo().length() < 3 || p.getCodigo().length() > 20)
-			return false;
-		return true;
+		return plantaDAO.validarPlanta(p);
 	}
 
 	public long insertar(Planta p) {
 
 		return plantaDAO.insertar(p);
 	}
-	
-	public boolean modificar(Planta p) {
-		return plantaDAO.modificar(p);
+
+	public boolean modificarNombreComun(String codigo, String nombrecomun) {
+		return plantaDAO.modificarNombreComun(codigo, nombrecomun);
 	}
-	
-	
-	
-	public Collection<Planta> verTodos(){
-		return plantaDAO.verTodos();  
+
+	public boolean modificarNombreCientifico(String codigo, String nombrecientifico) {
+		return plantaDAO.modificarNombrecientifico(codigo, nombrecientifico);
 	}
-	public HashSet<Planta> verPorNombre(String nombre){
-		return null;
+
+	public boolean codigoEsUnico(String codigo) {
+		return plantaDAO.codigoEsUnico(codigo);
 	}
-	
-	public Planta buscarPorId(long id) {
-		return plantaDAO.buscarPorID(id);
+
+	public Collection<Planta> verTodos() {
+		return plantaDAO.verTodos();
 	}
-	
+
 }
