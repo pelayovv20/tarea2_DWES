@@ -19,13 +19,14 @@ public class ConexionBD {
 
 	private static Connection con  = getConexion();
 	private static ConexionBD f;
-	
+
 	public static ConexionBD getInstance() {
-		if (f == null)
+		if (f == null) {
 			f = new ConexionBD();
+		}
 		return f;
 	}
-	
+
 
 	public static Connection getConexion() {
 		Properties prop = new Properties();
@@ -65,43 +66,43 @@ public class ConexionBD {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 	public PlantaDAO getPlantaDAO() {
 		return new PlantaDAO(con);
 	}
-	
+
 	public EjemplarDAO getEjemplarDAO() {
 		return new EjemplarDAO(con);
 	}
-	
+
 	public PersonaDAO getPersonaDAO() {
 		return new PersonaDAO(con);
 	}
-	
+
 	public MensajeDAO getMensajeDAO() {
 		return new MensajeDAO(con);
 	}
-	
+
 	public CredencialDAO getCredencialDAO() {
 		return new CredencialDAO(con);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -1,6 +1,6 @@
 package control;
 
-import java.util.Collection;
+import java.util.ArrayList;
 
 import dao.EjemplarDAO;
 import modelo.Ejemplar;
@@ -12,7 +12,7 @@ public class ServiciosEjemplar {
 
 	public ServiciosEjemplar() {
 		con = ConexionBD.getInstance();
-		ejemplarDAO = (EjemplarDAO) con.getEjemplarDAO();
+		ejemplarDAO = con.getEjemplarDAO();
 	}
 
 	public long insertar(Ejemplar e) {
@@ -20,8 +20,12 @@ public class ServiciosEjemplar {
 		return ejemplarDAO.insertar(e);
 	}
 
-	public Collection<Ejemplar> verTodos() {
-		return ejemplarDAO.verTodos();
+	public ArrayList<Ejemplar> verEjemplares(String codigoPlanta) {
+		return ejemplarDAO.verEjemplares(codigoPlanta);
+	}
+
+	public boolean cambiarNombre(long idEjemplar, String nombre) {
+		return ejemplarDAO.cambiarNombre(idEjemplar, nombre);
 	}
 
 }

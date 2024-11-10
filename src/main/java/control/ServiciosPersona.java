@@ -13,7 +13,7 @@ public class ServiciosPersona {
 
 	public ServiciosPersona() {
 		con = ConexionBD.getInstance();
-		personaDAO = (PersonaDAO) con.getPersonaDAO();
+		personaDAO = con.getPersonaDAO();
 	}
 
 	public long insertar(Persona p) {
@@ -29,4 +29,11 @@ public class ServiciosPersona {
 		return personaDAO.validarPersona(p);
 	}
 
+	public long personaAutenticada(String usuario) {
+		return personaDAO.personaAutenticada(usuario);
+	}
+
+	public boolean emailEsUnico(String email) {
+		return personaDAO.emailEsUnico(email);
+	}
 }

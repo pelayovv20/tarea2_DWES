@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 import control.Controlador;
 import modelo.Planta;
@@ -14,13 +13,20 @@ import util.ConexionBD;
 
 public class PlantaDAO {
 
+	private Connection con;
 	private PreparedStatement ps;
 	private ResultSet rs;
-	private Connection con;
 
 	public PlantaDAO(Connection con) {
 		this.con = con;
 	}
+
+	/**
+	 * Método para insertar una planta en la base de datos
+	 * 
+	 * @param Entidad de tipo Planta
+	 * @return 0 (planta insertada)
+	 */
 
 	public long insertar(Planta p) {
 		try {
@@ -38,8 +44,14 @@ public class PlantaDAO {
 		return 0;
 	}
 
+	/**
+	 * Método para ver todas las plantas que hay en la base de datos
+	 * 
+	 * @return un ArrayList de tipo Planta llamado plantas
+	 */
+
 	public Collection<Planta> verTodos() {
-		ArrayList<Planta> plantas = new ArrayList<Planta>();
+		ArrayList<Planta> plantas = new ArrayList<>();
 		String consulta = "SELECT * FROM plantas";
 
 		try {
@@ -66,8 +78,17 @@ public class PlantaDAO {
 
 	}
 
+	/**
+	 * Método para modificar el nombre común de una planta seleccionada en la base
+	 * de datos
+	 * 
+	 * @param código de la planta de tipo String y
+	 * @param nombre común de la planta de tipo String
+	 * @return datos de tipo int
+	 */
+
 	public boolean modificarNombreComun(String codigo, String nombrecomun) {
-		int filasActualizadas = 0;
+		int datos = 0;
 		String consulta = "UPDATE plantas SET nombrecomun = ? WHERE codigo = ?";
 		try {
 			if (con == null) {
@@ -76,18 +97,26 @@ public class PlantaDAO {
 			PreparedStatement ps = con.prepareStatement(consulta);
 			ps.setString(1, nombrecomun);
 			ps.setString(2, codigo);
-			filasActualizadas = ps.executeUpdate();
+			datos = ps.executeUpdate();
 
 		} catch (SQLException e) {
 			System.out.println("Se ha producido una SQLException:" + e.getMessage());
 			e.printStackTrace();
 		}
-		return filasActualizadas > 0;
+		return datos > 0;
 
 	}
 
+	/**
+	 * Método para modificar el nombre científico de una planta seleccionada en la
+	 * base de datos
+	 * 
+	 * @param codigo de la planta de tipo String
+	 * @param nombre cientifico de la planta de tipo String
+	 * @return datos de tipo int
+	 */
 	public boolean modificarNombrecientifico(String codigo, String nombrecientifico) {
-		int filasActualizadas = 0;
+		int datos = 0;
 		String consulta = "UPDATE plantas SET nombrecientifico = ? WHERE codigo = ?";
 		try {
 			if (con == null) {
@@ -96,35 +125,46 @@ public class PlantaDAO {
 			PreparedStatement ps = con.prepareStatement(consulta);
 			ps.setString(1, nombrecientifico);
 			ps.setString(2, codigo);
-			filasActualizadas = ps.executeUpdate();
+			datos = ps.executeUpdate();
 
 		} catch (SQLException e) {
 			System.out.println("Se ha producido una SQLException:" + e.getMessage());
 			e.printStackTrace();
 		}
-		return filasActualizadas > 0;
+		return datos > 0;
 
 	}
 
-	public boolean validarCodigo(String codigo) {
+	/**
+	 * Método para validar el código de una planta en la base de datos
+	 * 
+	 * @param codigo de la planta de tipo String
+	 * @return true si el código es correcto
+	 */
+	public boolean validarCodigo(String codigoPlanta) {
 
-		if (codigo == null || codigo.isEmpty()) {
+		if (codigoPlanta == null || codigoPlanta.isEmpty()) {
 			return false;
-		} else if (!codigo.matches("^[a-zA-Z]+$")) {
+		} else if (!codigoPlanta.matches("^[a-zA-Z]+$")) {
 			return false;
-		} else if (Controlador.getServicios().getServiciosPlanta().codigoEsUnico(codigo)) {
+		} else if (!Controlador.getServicios().getServiciosPlanta().existeCodigoPlanta(codigoPlanta)) {
 			return false;
 		}
+
 		return true;
 	}
 
+	/**
+	 * Método para validar la planta en la base de datos
+	 * 
+	 * @param entidad de tipo Planta
+	 * @return true si la planta es correcta
+	 */
 	public boolean validarPlanta(Planta p) {
-		if (p == null) {
+		if ((p == null) || p.getCodigo() == null || p.getCodigo().isEmpty()) {
 			return false;
 		}
-		if (p.getCodigo() == null || p.getCodigo().isEmpty()) {
-			return false;
-		}
+
 		if (p.getNombrecomun() == null || p.getNombrecomun().isEmpty()) {
 			return false;
 		}
@@ -134,7 +174,14 @@ public class PlantaDAO {
 		return true;
 	}
 
-	public boolean codigoEsUnico(String codigo) {
+	/**
+	 * Método para comprobar que el código de la planta introducido sea único en la
+	 * base de datos
+	 * 
+	 * @param codigo de la planta de tipo String
+	 * @return true si el codigo es único
+	 */
+	public boolean codigoEsUnico(String codigoPlanta) {
 
 		String consulta = "SELECT COUNT(*) FROM plantas WHERE codigo = ?";
 
@@ -144,7 +191,7 @@ public class PlantaDAO {
 			}
 			PreparedStatement ps = con.prepareStatement(consulta);
 
-			ps.setString(1, codigo);
+			ps.setString(1, codigoPlanta);
 
 			ResultSet rs = ps.executeQuery();
 
@@ -157,6 +204,34 @@ public class PlantaDAO {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Método para comprobar que el código de una planta introducido exista en la
+	 * base de datos
+	 * 
+	 * @param codigo de planta de tipo String
+	 * @return true si el código de la planta existe en la base de datos
+	 */
+
+	public boolean existeCodigoPlanta(String codigoPlanta) {
+		ArrayList<String> codigos = new ArrayList<String>();
+		String consulta = "SELECT codigo FROM plantas";
+		try {
+			ps = con.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				codigos.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (codigos.contains(codigoPlanta.toUpperCase())) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 }

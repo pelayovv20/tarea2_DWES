@@ -1,8 +1,6 @@
 package control;
 
-import java.text.Normalizer;
 import java.util.Collection;
-import java.util.HashSet;
 
 import dao.PlantaDAO;
 import modelo.Planta;
@@ -14,20 +12,20 @@ public class ServiciosPlanta {
 
 	public ServiciosPlanta() {
 		con = ConexionBD.getInstance();
-		plantaDAO = (PlantaDAO) con.getPlantaDAO();
-	}
-
-	public boolean validarCodigo(String codigo) {
-		return plantaDAO.validarCodigo(codigo);
-	}
-
-	public boolean validarPlanta(Planta p) {
-		return plantaDAO.validarPlanta(p);
+		plantaDAO = con.getPlantaDAO();
 	}
 
 	public long insertar(Planta p) {
 
 		return plantaDAO.insertar(p);
+	}
+
+	public boolean validarCodigo(String codigoPlanta) {
+		return plantaDAO.validarCodigo(codigoPlanta);
+	}
+
+	public boolean validarPlanta(Planta p) {
+		return plantaDAO.validarPlanta(p);
 	}
 
 	public boolean modificarNombreComun(String codigo, String nombrecomun) {
@@ -38,12 +36,16 @@ public class ServiciosPlanta {
 		return plantaDAO.modificarNombrecientifico(codigo, nombrecientifico);
 	}
 
-	public boolean codigoEsUnico(String codigo) {
-		return plantaDAO.codigoEsUnico(codigo);
+	public boolean codigoEsUnico(String codigoPlanta) {
+		return plantaDAO.codigoEsUnico(codigoPlanta);
 	}
 
 	public Collection<Planta> verTodos() {
 		return plantaDAO.verTodos();
+	}
+
+	public boolean existeCodigoPlanta(String codigoPlanta) {
+		return plantaDAO.existeCodigoPlanta(codigoPlanta);
 	}
 
 }

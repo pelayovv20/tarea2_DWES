@@ -5,10 +5,10 @@ public class Ejemplar {
 	private long id;
 	private String nombre;
 	private String id_planta;
-	
-	
+
+
 	public Ejemplar() {
-		
+
 	}
 
 
@@ -38,7 +38,7 @@ public class Ejemplar {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 
 
 	public String getId_planta() {
@@ -54,12 +54,11 @@ public class Ejemplar {
 	@Override
 	public String toString() {
 		String ret ="";
-		ret += "id: " + this.id;
-		ret += "\nnombre: " + this.nombre;
-		ret += "\nid planta: " + this.id_planta;
+		ret += "ID: " + this.id + " - " + "NOMBRE: " + this.nombre + " - " + "ID PLANTA: " + this.id_planta;
 		
+
 		return ret;
 	}
-	
-	
+
+
 }

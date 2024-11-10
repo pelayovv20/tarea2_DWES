@@ -9,9 +9,10 @@ public class Mensaje {
 	private String mensaje;
 	private long id_ejemplar;
 	private long id_persona;
-	
+
+
 	public Mensaje() {
-		
+
 	}
 
 	public Mensaje(long id, LocalDateTime fechahora, String mensaje, long id_ejemplar, long id_persona) {
@@ -22,6 +23,13 @@ public class Mensaje {
 		this.id_ejemplar = id_ejemplar;
 		this.id_persona = id_persona;
 	}
+
+	public Mensaje(LocalDateTime fechaHora, String mensaje, long id_ejemplar, long id_persona) {
+        this.fechahora = fechaHora;
+        this.mensaje = mensaje;
+        this.id_ejemplar = id_ejemplar;
+        this.id_persona = id_persona;
+    }
 
 	public long getId() {
 		return id;
@@ -46,8 +54,8 @@ public class Mensaje {
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
-	
-	
+
+
 
 	public long getId_ejemplar() {
 		return id_ejemplar;
@@ -68,14 +76,12 @@ public class Mensaje {
 	@Override
 	public String toString() {
 		String ret = "";
-		ret += "id: " + this.id;
-		ret += "\nfecha y hora: " + this.fechahora;
-		ret += "\nmensaje: " + this.mensaje;
-		ret += "\nid ejemplar: " + this.id_ejemplar;
-		ret += "\nid persona: " + this.id_persona;
-		
+		ret += "ID MENSAJE: " + this.id + " - " + " FECHA y HORA: " + this.fechahora + " - " + " MENSAJE: " + this.mensaje;
+		ret += "\nID EJEMPLAR: " + this.id_ejemplar + " - " + "ID PERSONA: " + this.id_persona;
+		ret += "\n-------------------------------------";
+
 		return ret;
 	}
-	
-	
+
+
 }

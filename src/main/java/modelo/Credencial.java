@@ -6,9 +6,9 @@ public class Credencial {
 	private String usuario;
 	private String password;
 	private long id_persona;
-	
+
 	public Credencial() {
-		
+
 	}
 
 	public Credencial(long id, String usuario, String password,Long id_persona) {
@@ -43,7 +43,7 @@ public class Credencial {
 		this.password = password;
 	}
 
-	
+
 	public long getId_persona() {
 		return id_persona;
 	}
@@ -59,9 +59,9 @@ public class Credencial {
 		ret += "\nusuario: " + this.usuario;
 		ret += "\npassword: " + this.password;
 		ret += "\nid persona: " + this.id_persona;
-		
+
 		return ret;
 	}
-	
-	
+
+
 }

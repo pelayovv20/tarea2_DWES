@@ -41,20 +41,20 @@ public class Planta {
 		this.nombrecientifico = nombrecientifico;
 	}
 
-	
+
 	@Override
 	public String toString() {
 		String ret = "";
 		ret += "CODIGO: " + this.codigo + " - " + " NOMBRE COMÚN: " + this.nombrecomun + " - " + " NOMBRE CIENTÍFICO: " + this.nombrecientifico;
-		
-		
+
+
 		return ret;
-		
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 }

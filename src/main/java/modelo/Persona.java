@@ -5,10 +5,10 @@ public class Persona {
 	private long id;
 	private String nombre;
 	private String email;
-	
-	
+
+
 	public Persona() {
-		
+
 	}
 
 	public Persona(long id, String nombre, String email) {
@@ -16,7 +16,7 @@ public class Persona {
 		this.id = id;
 		this.nombre = nombre;
 		this.email = email;
-		
+
 	}
 
 	public long getId() {
@@ -43,19 +43,17 @@ public class Persona {
 		this.email = email;
 	}
 
-	
-	
+
+
 
 	@Override
 	public String toString() {
 		String ret = "";
-		ret += "id: " + this.id;
-		ret += "\nnombre: " + this.nombre;
-		ret += "\nemail: " + this.email;
-		
-		
+		ret += "ID: " + this.id + " - " + " NOMBRE: " + this.nombre + " - " + " EMAIL: " + this.email;
+
+
 		return ret;
 	}
-	
-	
+
+
 }

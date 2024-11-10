@@ -1,6 +1,6 @@
 package control;
 
-import java.util.Collection;
+import java.util.ArrayList;
 
 import dao.MensajeDAO;
 import modelo.Mensaje;
@@ -12,23 +12,28 @@ public class ServiciosMensaje {
 
 	public ServiciosMensaje() {
 		con = ConexionBD.getInstance();
-		mensajeDAO = (MensajeDAO) con.getMensajeDAO();
+		mensajeDAO = con.getMensajeDAO();
 	}
 
 	public long insertar(Mensaje m) {
 
 		return mensajeDAO.insertar(m);
 	}
-	
-	
-	
-	
-	
-	public Collection<Mensaje> verTodos(){
-		return mensajeDAO.verTodos();
+
+	public ArrayList<Mensaje> verMensajesEjemplar(long idEjemplar) {
+		return mensajeDAO.verMensajesEjemplar(idEjemplar);
 	}
-	
-	public Mensaje buscarPorId(long id) {
-		return mensajeDAO.buscarPorID(id);
+
+	public ArrayList<Mensaje> verMensajesPersona(long idPersona) {
+		return mensajeDAO.verMensajesPersona(idPersona);
 	}
+
+	public ArrayList<Mensaje> verMensajesPlanta(String codigoPlanta) {
+		return mensajeDAO.verMensajesPlanta(codigoPlanta);
+	}
+
+	public boolean validarMensaje(String mensaje) {
+		return mensajeDAO.validarMensaje(mensaje);
+	}
+
 }
