@@ -609,44 +609,42 @@ public class ViveroFachada {
 		long idEjemplar = 0;
 		boolean validarEjemplar = false;
 		boolean validarMensaje = false;
-		do {
-			try {
-				
-				System.out.println("Id del ejemplar ");
-				idEjemplar = in.nextLong();
-				in.nextLine();
-				if (idEjemplar < 7) {
-					System.out.println("Id de ejemplar no encontrado");
-				} else {
-					String mensaje = "";
 
-					do {
-						System.out.println("Introduce el mensaje: ");
-						mensaje = in.nextLine();
-						validarMensaje = controlador.getServiciosMensaje().validarMensaje(mensaje);
-						if (validarMensaje == false) {
-							System.out.println("Mensaje incorrecto");
+		try {
+
+			System.out.println("Id del ejemplar ");
+			idEjemplar = in.nextLong();
+			in.nextLine();
+			if (idEjemplar < 7) {
+				System.out.println("Id de ejemplar no encontrado");
+			} else {
+				String mensaje = "";
+
+				do {
+					System.out.println("Introduce el mensaje: ");
+					mensaje = in.nextLine();
+					validarMensaje = controlador.getServiciosMensaje().validarMensaje(mensaje);
+					if (validarMensaje == false) {
+						System.out.println("Mensaje incorrecto");
+					} else {
+						validarMensaje = true;
+						String usuarioActual = controlador.getUsuarioActual();
+						long idUsuario = controlador.getServiciosPersona().personaAutenticada(usuarioActual);
+						m = new Mensaje(LocalDateTime.now(), mensaje, idEjemplar, idUsuario);
+						if (controlador.getServiciosMensaje().insertar(m) > 0) {
+							System.out.println("Mensaje añadido");
+							validarMensaje = true;
 						} else {
-							validarMensaje =true;
-							String usuarioActual = controlador.getUsuarioActual();
-							long idUsuario = controlador.getServiciosPersona().personaAutenticada(usuarioActual);
-							m = new Mensaje(LocalDateTime.now(), mensaje, idEjemplar, idUsuario);
-							if (controlador.getServiciosMensaje().insertar(m) > 0) {
-								System.out.println("Mensaje añadido");
-								validarMensaje = true;
-							} else {
-								System.out.println("Mensaje no añadido");
-							}
+							System.out.println("Mensaje no añadido");
 						}
-					} while (!validarMensaje);
-				}
-				
-			} catch (InputMismatchException e) {
-				System.out.println("Debes introducir un número válido.");
-				in.nextLine();
+					}
+				} while (!validarMensaje);
 			}
-		} while (!validarEjemplar);
-		
+
+		} catch (InputMismatchException e) {
+			System.out.println("Debes introducir un número válido.");
+			in.nextLine();
+		}
 
 	}
 
