@@ -105,6 +105,10 @@ public class CredencialDAO {
 		if (c == null) {
 			return false;
 		}
+		if (!c.getUsuario().matches("^[a-zA-Z0-9_]+$")){
+			return false;
+			
+		}
 		if (c.getUsuario() == null || c.getUsuario().isEmpty()) {
 			return false;
 		} else if (!Controlador.getServicios().getServiciosCredencial().usuarioEsUnico(c.getUsuario())) {

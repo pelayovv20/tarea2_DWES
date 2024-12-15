@@ -495,6 +495,9 @@ public class ViveroFachada {
 		Mensaje m;
 		boolean correcto = false;
 		boolean validarPlanta = false;
+		verPlantas();
+		System.out.println();
+		
 		do {
 			e = new Ejemplar();
 			System.out.println("Codigo de planta");
@@ -677,6 +680,9 @@ public class ViveroFachada {
 	public void verEjemplares() {
 		Scanner in = new Scanner(System.in);
 		boolean validarCodigoPlanta = false;
+		verPlantas();
+		System.out.println();
+		
 		try {
 			do {
 				System.out.println("Codigo de la planta");
@@ -840,6 +846,9 @@ public class ViveroFachada {
 		boolean validarPlanta;
 		boolean modificarNombreComun;
 		String codigoPlanta;
+		verPlantas();
+		System.out.println();
+		System.out.println();
 		try {
 			do {
 				System.out.println("Codigo de la planta");
@@ -873,6 +882,9 @@ public class ViveroFachada {
 		boolean validarPlanta;
 		boolean modificarNombreCientifico;
 		String codigoPlanta;
+		verPlantas();
+		System.out.println();
+		System.out.println();
 		try {
 			do {
 				System.out.println("Codigo de la planta");

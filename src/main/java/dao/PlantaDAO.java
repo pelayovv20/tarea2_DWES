@@ -147,7 +147,7 @@ public class PlantaDAO {
 			return false;
 		} else if (!codigoPlanta.matches("^[a-zA-Z]+$")) {
 			return false;
-		} else if (!Controlador.getServicios().getServiciosPlanta().existeCodigoPlanta(codigoPlanta)) {
+		} else if (Controlador.getServicios().getServiciosPlanta().existeCodigoPlanta(codigoPlanta)) {
 			return false;
 		}
 
@@ -231,7 +231,7 @@ public class PlantaDAO {
 		} else {
 			return false;
 		}
-
+		
 	}
 
 }
